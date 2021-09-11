@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_11_135639) do
+ActiveRecord::Schema.define(version: 2021_09_11_183611) do
 
-  create_table "articles", id: { limit: 8 }, force: :cascade do |t|
-    t.string "title"
-    t.string "body"
+  create_table "users", primary_key: "user_id", id: { limit: 8 }, force: :cascade do |t|
+    t.string "session_token"
+    t.string "device_id", null: false
+    t.string "name", null: false
     t.time "created_at", null: false
     t.time "updated_at", null: false
+    t.index ["device_id"], name: "index_users_on_device_id", unique: true, order: { device_id: :asc }
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true, order: { session_token: :asc }
   end
 
 end
