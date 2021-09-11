@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protocol.spanner_example;
+
+enum StatusCode {
+  OK = 0;
+  UNKNOWN = 1;
+  INVALID_ARGUMENT = 2;
+}
+
+message Metadata {
+  StatusCode status_code = 1;
+}

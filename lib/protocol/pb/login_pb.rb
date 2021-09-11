@@ -3,27 +3,31 @@
 
 require 'google/protobuf'
 
+require 'code_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "protocol.spanner_example.UserId" do
-    optional :value, :string, 1
+    optional :value, :int64, 1
   end
   add_message "protocol.spanner_example.CreateUserRequest" do
     optional :device_id, :string, 1
+    optional :name, :string, 2
   end
   add_message "protocol.spanner_example.CreateUserResponse" do
-    optional :user_id, :message, 1, "protocol.spanner_example.UserId"
+    optional :metadata, :message, 1, "protocol.spanner_example.Metadata"
   end
   add_message "protocol.spanner_example.CreateSessionRequest" do
     optional :device_id, :string, 1
   end
   add_message "protocol.spanner_example.CreateSessionResponse" do
-    optional :session_token, :string, 1
+    optional :metadata, :message, 1, "protocol.spanner_example.Metadata"
+    optional :session_token, :string, 2
   end
   add_message "protocol.spanner_example.LoginRequest" do
     optional :session_token, :string, 1
   end
   add_message "protocol.spanner_example.LoginResponse" do
-    optional :user_id, :string, 1
+    optional :metadata, :message, 1, "protocol.spanner_example.Metadata"
+    optional :user_id, :message, 2, "protocol.spanner_example.UserId"
   end
 end
 

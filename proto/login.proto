@@ -2,16 +2,19 @@ syntax = "proto3";
 
 package protocol.spanner_example;
 
+import "code.proto";
+
 message UserId {
-  string value = 1;
+  int64 value = 1;
 }
 
 message CreateUserRequest {
   string device_id = 1;
+  string name = 2;
 }
 
 message CreateUserResponse {
-  UserId user_id = 1;
+  Metadata metadata = 1;
 }
 
 message CreateSessionRequest {
@@ -19,7 +22,8 @@ message CreateSessionRequest {
 }
 
 message CreateSessionResponse {
-  string session_token = 1;
+  Metadata metadata = 1;
+  string session_token = 2;
 }
 
 message LoginRequest {
@@ -27,7 +31,8 @@ message LoginRequest {
 }
 
 message LoginResponse {
-  string user_id = 1;
+  Metadata metadata = 1;
+  UserId user_id = 2;
 }
 
 service Auth {

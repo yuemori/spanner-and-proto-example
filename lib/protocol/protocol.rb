@@ -8,12 +8,12 @@ module Protocol
   end
 end
 
-require_relative "service"
+$LOAD_PATH << File.dirname(__FILE__)
+$LOAD_PATH << File.dirname(__FILE__) + "/pb"
 
 Dir.glob(File.expand_path("../pb/*.rb", __FILE__)).each do |file|
-  require_relative file
+  require File.basename(file)
 end
 
-Dir.glob(File.expand_path("../servicepb/*.rb", __FILE__)).each do |file|
-  require_relative file
-end
+require "service"
+require "servicepb/service"
