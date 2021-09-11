@@ -3,42 +3,37 @@
 
 require 'google/protobuf'
 
-require 'code_pb'
+require 'core_pb'
+require 'metadata_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "protocol.spanner_example.UserId" do
-    optional :value, :int64, 1
-  end
-  add_message "protocol.spanner_example.CreateUserRequest" do
+  add_message "protocol.CreateUserRequest" do
     optional :device_id, :string, 1
     optional :name, :string, 2
   end
-  add_message "protocol.spanner_example.CreateUserResponse" do
-    optional :metadata, :message, 1, "protocol.spanner_example.Metadata"
+  add_message "protocol.CreateUserResponse" do
+    optional :metadata, :message, 1, "protocol.Metadata"
   end
-  add_message "protocol.spanner_example.CreateSessionRequest" do
+  add_message "protocol.CreateSessionRequest" do
     optional :device_id, :string, 1
   end
-  add_message "protocol.spanner_example.CreateSessionResponse" do
-    optional :metadata, :message, 1, "protocol.spanner_example.Metadata"
+  add_message "protocol.CreateSessionResponse" do
+    optional :metadata, :message, 1, "protocol.Metadata"
     optional :session_token, :string, 2
   end
-  add_message "protocol.spanner_example.LoginRequest" do
+  add_message "protocol.LoginRequest" do
     optional :session_token, :string, 1
   end
-  add_message "protocol.spanner_example.LoginResponse" do
-    optional :metadata, :message, 1, "protocol.spanner_example.Metadata"
-    optional :user_id, :message, 2, "protocol.spanner_example.UserId"
+  add_message "protocol.LoginResponse" do
+    optional :metadata, :message, 1, "protocol.Metadata"
+    optional :user_id, :message, 2, "protocol.UserId"
   end
 end
 
 module Protocol
-  module SpannerExample
-    UserId = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.UserId").msgclass
-    CreateUserRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.CreateUserRequest").msgclass
-    CreateUserResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.CreateUserResponse").msgclass
-    CreateSessionRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.CreateSessionRequest").msgclass
-    CreateSessionResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.CreateSessionResponse").msgclass
-    LoginRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.LoginRequest").msgclass
-    LoginResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.LoginResponse").msgclass
-  end
+  CreateUserRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.CreateUserRequest").msgclass
+  CreateUserResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.CreateUserResponse").msgclass
+  CreateSessionRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.CreateSessionRequest").msgclass
+  CreateSessionResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.CreateSessionResponse").msgclass
+  LoginRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.LoginRequest").msgclass
+  LoginResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.LoginResponse").msgclass
 end

@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package protocol;
+
+message ErrorDetail {
+  string reason = 1;
+  string message = 2;
+}

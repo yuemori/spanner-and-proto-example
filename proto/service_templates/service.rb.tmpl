@@ -1,12 +1,10 @@
 module Protocol
-  module SpannerExample
-    class {{.Service.Name}}Service < Protocol::Service
-      self.service_name = :{{snakeCase .Service.Name}}_service
+  class {{.Service.Name}}Service < Protocol::Service
+    self.service_name = :{{snakeCase .Service.Name}}_service
 
-      {{- range .Service.Method}}
-      rpc :{{snakeCase .Name}}, Protocol::SpannerExample::{{.Name}}Request, Protocol::SpannerExample::{{.Name}}Response
-      {{- end}}
-    end
-    Protocol.register_service :{{snakeCase .Service.Name}}, {{.Service.Name}}Service
+    {{- range .Service.Method}}
+    rpc :{{snakeCase .Name}}, Protocol::{{.Name}}Request, Protocol::{{.Name}}Response
+    {{- end}}
   end
+  Protocol.register_service :{{snakeCase .Service.Name}}, {{.Service.Name}}Service
 end

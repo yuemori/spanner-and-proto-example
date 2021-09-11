@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
 
-  rescue_from StandardError do
-    render_error :UNKNOWN
+  rescue_from StandardError do |e|
+    render_error :UNKNOWN, e
   end
 
   class UnknownProtocol < StandardError; end
@@ -14,8 +14,24 @@ class ApplicationController < ActionController::API
     render_response(value.merge(metadata: { status_code: :OK }))
   end
 
-  def render_error(error_code, options = {})
-    render_response(metadata: { status_code: error_code })
+  def render_error(error_code, errors = [], options = {})
+    error_details = wrap_errors(errors)
+    render_response(metadata: { status_code: error_code, error_details: error_details })
+  end
+
+  def wrap_errors(errors)
+    errors = Array(errors)
+
+    errors.map do |error|
+      case error
+      when ActiveModel::Errors
+        wrap_errors(error)
+      when ActiveModel::Error
+        Protocol::ErrorDetail.new(reason: "RecordInvalid", message: error.full_message)
+      when Exception
+        Protocol::ErrorDetail.new(reason: error.inspect, message: error.message)
+      end
+    end.flatten.compact
   end
 
   def render_response(value, options = {})

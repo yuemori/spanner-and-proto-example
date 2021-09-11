@@ -1,12 +1,9 @@
 syntax = "proto3";
 
-package protocol.spanner_example;
+package protocol;
 
-import "code.proto";
-
-message UserId {
-  int64 value = 1;
-}
+import "core.proto";
+import "metadata.proto";
 
 message CreateUserRequest {
   string device_id = 1;

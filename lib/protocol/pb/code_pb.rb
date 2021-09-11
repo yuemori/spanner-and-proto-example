@@ -4,10 +4,7 @@
 require 'google/protobuf'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "protocol.spanner_example.Metadata" do
-    optional :status_code, :enum, 1, "protocol.spanner_example.StatusCode"
-  end
-  add_enum "protocol.spanner_example.StatusCode" do
+  add_enum "protocol.StatusCode" do
     value :OK, 0
     value :UNKNOWN, 1
     value :INVALID_ARGUMENT, 2
@@ -15,8 +12,5 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
 end
 
 module Protocol
-  module SpannerExample
-    Metadata = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.Metadata").msgclass
-    StatusCode = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.spanner_example.StatusCode").enummodule
-  end
+  StatusCode = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.StatusCode").enummodule
 end

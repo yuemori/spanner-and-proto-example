@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "auth/create_user" do
-  subject { post "/auth/create_user", params: Protocol::SpannerExample::CreateUserRequest.new(device_id: device_id, name: name), as: :protobuf }
+  subject { post "/auth/create_user", params: Protocol::CreateUserRequest.new(device_id: device_id, name: name), as: :protobuf }
 
   context 'when valid request' do
     let(:device_id) { SecureRandom.uuid }
@@ -11,7 +11,7 @@ RSpec.describe "auth/create_user" do
       subject
 
       expect(response).to have_http_status 200
-      resp = Protocol::SpannerExample::CreateUserResponse.decode(response.body)
+      resp = Protocol::CreateUserResponse.decode(response.body)
 
       expect(resp.metadata.status_code).to equal(:OK)
     end
@@ -25,7 +25,7 @@ RSpec.describe "auth/create_user" do
       it 'returns invalid_argument response' do
         subject
         expect(response).to have_http_status 200
-        resp = Protocol::SpannerExample::CreateUserResponse.decode(response.body)
+        resp = Protocol::CreateUserResponse.decode(response.body)
 
         expect(resp.metadata.status_code).to equal(:INVALID_ARGUMENT)
       end
@@ -38,7 +38,7 @@ RSpec.describe "auth/create_user" do
       it 'returns invalid_argument response' do
         subject
         expect(response).to have_http_status 200
-        resp = Protocol::SpannerExample::CreateUserResponse.decode(response.body)
+        resp = Protocol::CreateUserResponse.decode(response.body)
 
         expect(resp.metadata.status_code).to equal(:INVALID_ARGUMENT)
       end

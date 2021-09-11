@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package protocol;
+
+import "error_details.proto";
+import "code.proto";
+
+message Metadata {
+  StatusCode status_code = 1;
+  repeated ErrorDetail error_details = 2;
+}

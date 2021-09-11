@@ -1,8 +1,6 @@
 class AuthController < ApplicationController
-  include Protocol::SpannerExample
-
   rescue_from(ActiveRecord::RecordNotFound) do |e|
-    render_error(:INVALID_ARGUMENT)
+    render_error(:INVALID_ARGUMENT, e)
   end
 
   def create_user
@@ -11,7 +9,7 @@ class AuthController < ApplicationController
     if user.save
       render_ok
     else
-      render_error(:INVALID_ARGUMENT)
+      render_error(:INVALID_ARGUMENT, user.errors)
     end
   end
 
@@ -28,6 +26,6 @@ class AuthController < ApplicationController
   def login
     user = User.find_by!(session_token: params.session_token)
 
-    render_ok(user_id: UserId.new(value: user.user_id))
+    render_ok(user_id: Protocol::UserId.new(value: user.user_id))
   end
 end
