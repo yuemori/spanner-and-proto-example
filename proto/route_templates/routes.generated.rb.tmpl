@@ -1,0 +1,6 @@
+Rails.application.routes.draw do
+# {{$.Service.Name}}
+{{- range .Service.Method}}
+  post "{{snakeCase $.Service.Name}}/{{snakeCase .Name}}" => "{{snakeCase $.Service.Name}}#{{snakeCase .Name}}"
+{{- end}}
+end

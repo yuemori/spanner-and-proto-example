@@ -36,5 +36,7 @@ module SpannerExample
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.paths['config/routes.rb'] = Dir[Rails.root.join('config/routes/*.rb')]
   end
 end

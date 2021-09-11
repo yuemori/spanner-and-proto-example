@@ -6,3 +6,13 @@ services:
     ports:
     - '9010:9010'
     - '9020:9020'
+  protoc:
+    container_name: protoc
+    image: moul/protoc-gen-gotemplate
+    entrypoint: sh
+    command: ["-c", "rm -rf /pb/* && protoc -I. --ruby_out=/protocol/pb ./*.proto && protoc -I. --gotemplate_out=template_dir=/proto/route_templates:/routes ./*.proto && protoc -I. --gotemplate_out=template_dir=/proto/service_templates:/protocol/servicepb ./*.proto"]
+    working_dir: /proto
+    volumes:
+    - ./proto:/proto:rw
+    - ./lib/protocol:/protocol
+    - ./config/routes:/routes
