@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package protocol;
-
-message UserId {
-  int64 value = 1;
-}

@@ -3,7 +3,7 @@ module Protocol
     self.service_name = :{{snakeCase .Service.Name}}_service
 
     {{- range .Service.Method}}
-    rpc :{{snakeCase .Name}}, Protocol::{{.Name}}Request, Protocol::{{.Name}}Response
+    rpc :{{snakeCase .Name}}, Protocol::Rpc::{{.Name}}Request, Protocol::Rpc::{{.Name}}Response
     {{- end}}
   end
   Protocol.register_service :{{snakeCase .Service.Name}}, {{.Service.Name}}Service

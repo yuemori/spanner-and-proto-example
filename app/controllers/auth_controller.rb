@@ -26,6 +26,6 @@ class AuthController < ApplicationController
   def login
     user = User.find_by!(session_token: params.session_token)
 
-    render_ok(user_id: Protocol::UserId.new(value: user.user_id))
+    render_ok(user_id: Protocol::Rpc::UserId.new(value: user.user_id))
   end
 end

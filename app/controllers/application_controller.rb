@@ -27,9 +27,9 @@ class ApplicationController < ActionController::API
       when ActiveModel::Errors
         wrap_errors(error)
       when ActiveModel::Error
-        Protocol::ErrorDetail.new(reason: "RecordInvalid", message: error.full_message)
+        Protocol::Rpc::ErrorDetail.new(reason: "RecordInvalid", message: error.full_message)
       when Exception
-        Protocol::ErrorDetail.new(reason: error.inspect, message: error.message)
+        Protocol::Rpc::ErrorDetail.new(reason: error.inspect, message: error.message)
       end
     end.flatten.compact
   end

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package protocol;
+package protocol.rpc;
 
-import "error_details.proto";
-import "code.proto";
+import "rpc/error_details.proto";
+import "rpc/code.proto";
 
 message Metadata {
   StatusCode status_code = 1;

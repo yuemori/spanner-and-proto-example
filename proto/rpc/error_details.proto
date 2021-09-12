@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protocol;
+package protocol.rpc;
 
 message ErrorDetail {
   string reason = 1;

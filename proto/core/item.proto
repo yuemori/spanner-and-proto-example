@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package protocol.core;
+
+enum ItemCategory {
+  ITEM_CATEGORY_CRYSTAL = 0;
+  ITEM_CATEGORY_COIN = 1;
+  ITEM_CATEGORY_STAMINA = 2;
+  ITEM_CATEGORY_USER_EXP = 3;
+  ITEM_CATEGORY_CARD = 4;
+}
