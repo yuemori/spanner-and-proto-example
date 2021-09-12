@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package protocol.core;
+
+message UserId {
+  int64 value = 1;
+}

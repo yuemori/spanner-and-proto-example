@@ -3,7 +3,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "name"
   end
 
-  create_table "initial_user_item" do |t|
+  create_table "initial_user_items" do |t|
     t.integer "item_category"
     t.integer "item_id"
     t.integer "count"

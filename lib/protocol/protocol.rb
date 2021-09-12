@@ -19,5 +19,9 @@ Dir.glob(File.expand_path("../pb/rpc/*.rb", __FILE__)).each do |file|
   require Pathname.new("rpc").join(File.basename(file)).to_s
 end
 
+Dir.glob(File.expand_path("../pb/masterpb/*.rb", __FILE__)).each do |file|
+  require Pathname.new("masterpb").join(File.basename(file)).to_s
+end
+
 require "service"
 require "servicepb/service"

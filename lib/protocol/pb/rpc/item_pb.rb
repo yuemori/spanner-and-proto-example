@@ -3,38 +3,39 @@
 
 require 'google/protobuf'
 
+require 'core/user_pb'
 require 'core/item_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "protocol.UserId" do
-    optional :value, :int64, 1
-  end
-  add_message "protocol.Item" do
+  add_message "protocol.rpc.UserItem" do
     optional :item_category, :enum, 1, "protocol.core.ItemCategory"
     optional :item_id, :int32, 2
     optional :count, :int32, 3
+    optional :user_id, :message, 4, "protocol.core.UserId"
   end
-  add_message "protocol.UserCrystal" do
+  add_message "protocol.rpc.UserCrystal" do
     optional :free_count, :int32, 1
     optional :paid_count, :int32, 2
+    optional :user_id, :message, 3, "protocol.core.UserId"
   end
-  add_message "protocol.UserCard" do
+  add_message "protocol.rpc.UserCard" do
     optional :id, :string, 1
-    optional :user_id, :message, 2, "protocol.UserId"
+    optional :user_id, :message, 2, "protocol.core.UserId"
     optional :card_id, :int32, 3
     optional :exp, :int32, 4
     optional :level, :int32, 5
   end
-  add_message "protocol.UserInventory" do
-    repeated :items, :message, 1, "protocol.Item"
-    repeated :user_cards, :message, 2, "protocol.UserCard"
-    optional :user_crystal, :message, 3, "protocol.UserCrystal"
+  add_message "protocol.rpc.UserInventory" do
+    repeated :user_items, :message, 1, "protocol.rpc.UserItem"
+    repeated :user_cards, :message, 2, "protocol.rpc.UserCard"
+    optional :user_crystal, :message, 3, "protocol.rpc.UserCrystal"
   end
 end
 
 module Protocol
-  UserId = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.UserId").msgclass
-  Item = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.Item").msgclass
-  UserCrystal = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.UserCrystal").msgclass
-  UserCard = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.UserCard").msgclass
-  UserInventory = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.UserInventory").msgclass
+  module Rpc
+    UserItem = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.UserItem").msgclass
+    UserCrystal = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.UserCrystal").msgclass
+    UserCard = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.UserCard").msgclass
+    UserInventory = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.UserInventory").msgclass
+  end
 end

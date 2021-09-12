@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_11_183611) do
+ActiveRecord::Schema.define(version: 2021_09_12_144524) do
+
+  create_table "user_cards", id: { limit: 8 }, force: :cascade do |t|
+    t.integer "user_id", limit: 8, null: false
+    t.integer "card_id", limit: 8, null: false
+    t.integer "exp", limit: 8, null: false
+    t.time "created_at", null: false
+    t.time "updated_at", null: false
+  end
+
+  create_table "user_crystals", id: { limit: 8 }, force: :cascade do |t|
+    t.integer "user_id", limit: 8, null: false
+    t.integer "free_count", limit: 8, null: false
+    t.integer "paid_count", limit: 8, null: false
+    t.time "created_at", null: false
+    t.time "updated_at", null: false
+  end
+
+  create_table "user_items", id: { limit: 8 }, force: :cascade do |t|
+    t.integer "user_id", limit: 8, null: false
+    t.integer "item_category", limit: 8
+    t.integer "count", limit: 8
+    t.integer "item_id", limit: 8
+    t.time "created_at", null: false
+    t.time "updated_at", null: false
+  end
 
   create_table "users", primary_key: "user_id", id: { limit: 8 }, force: :cascade do |t|
     t.string "session_token"

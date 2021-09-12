@@ -4,28 +4,33 @@ class AuthController < ApplicationController
   end
 
   def create_user
-    user = User.new(device_id: params.device_id, name: params.name)
+    resp = CreateUserUsecase.new.call(device_id: params.device_id, name: params.name)
 
-    if user.save
+    if resp.success?
       render_ok
     else
-      render_error(:INVALID_ARGUMENT, user.errors)
+      render_error(:INVALID_ARGUMENT, resp.error)
     end
   end
 
   def create_session
-    user = User.find_by!(device_id: params.device_id)
-
     session_token = SecureRandom.base64(13)
 
-    user.update!(session_token: session_token)
+    SpannerRecord.transaction do
+      user = User.find_by!(device_id: params.device_id)
+      user.update!(session_token: session_token)
+    end
 
     render_ok(session_token: session_token)
   end
 
   def login
     user = User.find_by!(session_token: params.session_token)
+    inventory = UserInventory.find_by_user_id(user.id)
 
-    render_ok(user_id: Protocol::Rpc::UserId.new(value: user.user_id))
+    render_ok(
+      user_id: Protocol::Core::UserId.new(value: user.user_id),
+      user_inventory: UserInventorySerializer.new.serialize(inventory)
+    )
   end
 end

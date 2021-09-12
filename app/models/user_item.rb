@@ -1,0 +1,2 @@
+class UserItem < SpannerRecord
+end

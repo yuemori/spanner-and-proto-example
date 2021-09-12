@@ -1,34 +1,33 @@
 syntax = "proto3";
 
-package protocol;
+package protocol.rpc;
 
+import "core/user.proto";
 import "core/item.proto";
 
-message UserId {
-  int64 value = 1;
-}
-
-message Item {
+message UserItem {
   protocol.core.ItemCategory item_category = 1;
   int32 item_id = 2;
   int32 count = 3;
+  protocol.core.UserId user_id = 4;
 }
 
 message UserCrystal {
   int32 free_count = 1;
   int32 paid_count = 2;
+  protocol.core.UserId user_id = 3;
 }
 
 message UserCard {
   string id = 1;
-  UserId user_id = 2;
+  protocol.core.UserId user_id = 2;
   int32 card_id = 3;
   int32 exp = 4;
   int32 level = 5;
 }
 
 message UserInventory {
-  repeated Item items = 1;
+  repeated UserItem user_items = 1;
   repeated UserCard user_cards = 2;
   UserCrystal user_crystal = 3;
 }

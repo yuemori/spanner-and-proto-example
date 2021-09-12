@@ -13,7 +13,7 @@ RSpec.describe "auth/create_user" do
       expect(response).to have_http_status 200
       resp = Protocol::Rpc::CreateUserResponse.decode(response.body)
 
-      expect(resp.metadata.status_code).to equal(:OK)
+      expect(resp.metadata).to eq Protocol::Rpc::Metadata.new(status_code: :OK)
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe "auth/create_user" do
         expect(response).to have_http_status 200
         resp = Protocol::Rpc::CreateUserResponse.decode(response.body)
 
-        expect(resp.metadata.status_code).to equal(:INVALID_ARGUMENT)
+        expect(resp.metadata.status_code).to eq(:INVALID_ARGUMENT)
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe "auth/create_user" do
         expect(response).to have_http_status 200
         resp = Protocol::Rpc::CreateUserResponse.decode(response.body)
 
-        expect(resp.metadata.status_code).to equal(:INVALID_ARGUMENT)
+        expect(resp.metadata.status_code).to eq(:INVALID_ARGUMENT)
       end
     end
   end

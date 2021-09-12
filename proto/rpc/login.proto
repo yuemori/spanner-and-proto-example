@@ -4,10 +4,7 @@ package protocol.rpc;
 
 import "rpc/metadata.proto";
 import "rpc/item.proto";
-
-message UserId {
-  int64 value = 1;
-}
+import "core/user.proto";
 
 message CreateUserRequest {
   string device_id = 1;
@@ -33,7 +30,7 @@ message LoginRequest {
 
 message LoginResponse {
   Metadata metadata = 1;
-  UserId user_id = 2;
+  protocol.core.UserId user_id = 2;
   UserInventory user_inventory = 3;
 }
 

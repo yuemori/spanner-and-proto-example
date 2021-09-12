@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package protocol.master_data;
+
+import "core/item.proto";
+
+message InitialUserItem {
+  protocol.core.ItemCategory item_category = 1;
+  int32 item_id = 2;
+  int32 count = 3;
+}

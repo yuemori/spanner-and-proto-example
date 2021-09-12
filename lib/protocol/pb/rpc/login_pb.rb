@@ -5,10 +5,8 @@ require 'google/protobuf'
 
 require 'rpc/metadata_pb'
 require 'rpc/item_pb'
+require 'core/user_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "protocol.rpc.UserId" do
-    optional :value, :int64, 1
-  end
   add_message "protocol.rpc.CreateUserRequest" do
     optional :device_id, :string, 1
     optional :name, :string, 2
@@ -28,14 +26,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   end
   add_message "protocol.rpc.LoginResponse" do
     optional :metadata, :message, 1, "protocol.rpc.Metadata"
-    optional :user_id, :message, 2, "protocol.rpc.UserId"
-    optional :user_inventory, :message, 3, "protocol.UserInventory"
+    optional :user_id, :message, 2, "protocol.core.UserId"
+    optional :user_inventory, :message, 3, "protocol.rpc.UserInventory"
   end
 end
 
 module Protocol
   module Rpc
-    UserId = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.UserId").msgclass
     CreateUserRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.CreateUserRequest").msgclass
     CreateUserResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.CreateUserResponse").msgclass
     CreateSessionRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("protocol.rpc.CreateSessionRequest").msgclass
