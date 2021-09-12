@@ -5,24 +5,40 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: spanner
+  spanner: &spanner_default
+    adapter: spanner
+    pool: 5
+  master: &master_default
+    adapter: sqlite3
 
 development:
-  <<: *default
-  emulator_host: "localhost:9010"
-  project: "spanner-example"
-  instance: "spanner-example"
-  database: "app-dev"
+  spanner:
+    <<: *spanner_default
+    emulator_host: "localhost:9010"
+    project: "spanner-example"
+    instance: "spanner-example"
+    database: "app-dev"
+  master:
+    <<: *master_default
+    database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  emulator_host: "localhost:9010"
-  project: "spanner-example"
-  instance: "spanner-example"
-  database: "app-test"
+  spanner:
+    <<: *spanner_default
+    emulator_host: "localhost:9010"
+    project: "spanner-example"
+    instance: "spanner-example"
+    database: "app-test"
+  master: 
+    <<: *master_default
+    database: db/test.sqlite3
 
 production:
-  <<: *default
+  spanner:
+    <<: *spanner_default
+  master:
+    <<: *master_default
+    database: db/production.sqlite3
