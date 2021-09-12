@@ -19,8 +19,7 @@ RSpec.describe "auth/login" do
       expect(response).to have_http_status 200
       resp = Protocol::Rpc::LoginResponse.decode(response.body)
 
-      expect(resp.metadata.error_details).to be_blank
-      expect(resp.metadata.status_code).to equal(:OK)
+      expect(resp.metadata).to eq Protocol::Rpc::Metadata.new(status_code: :OK)
       expect(resp.user_id).to be_present
     end
   end

@@ -14,7 +14,7 @@ RSpec.describe "auth/create_session" do
       expect(response).to have_http_status 200
       resp = Protocol::Rpc::CreateSessionResponse.decode(response.body)
 
-      expect(resp.metadata.status_code).to equal(:OK)
+      expect(resp.metadata).to eq Protocol::Rpc::Metadata.new(status_code: :OK)
       expect(resp.session_token).to be_present
     end
   end
